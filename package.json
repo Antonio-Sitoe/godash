@@ -22,9 +22,6 @@
     "react-query": "^3.13.6",
     "yup": "^0.32.9",
     "@next/font": "13.1.6",
-    "@types/node": "18.11.19",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
@@ -34,6 +31,7 @@
   "devDependencies": {
     "@types/faker": "^5.5.1",
     "@types/node": "18.11.19",
+    "@types/react-dom": "18.0.10",
     "@types/react": "^18.0.27",
     "faker": "^5.5.3",
     "miragejs": "^0.1.41",
