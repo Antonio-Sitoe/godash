@@ -20,11 +20,11 @@ function Dashboard() {
           flex="1"
           gap="4"
         >
-          <Box bg="gray.800" borderRadius={8} p="4">
+          <Box bg="gray.800" borderRadius={8} p={["4", "8"]}>
             <Text>Inscritos da semana</Text>
             <ChartHome />
           </Box>
-          <Box bg="gray.800" borderRadius={8} p="4">
+          <Box bg="gray.800" borderRadius={8} p={["4", "8"]}>
             <Text>Taxa de abertura</Text>
             <ChartHome />
           </Box>

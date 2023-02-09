@@ -5,7 +5,7 @@ import PaginationItem from "./PaginationItem";
 function Pagination() {
   return (
     <Stack
-      flexDirection="row"
+      flexDirection={["column", "row"]}
       px="8"
       pb="8"
       mt="8"

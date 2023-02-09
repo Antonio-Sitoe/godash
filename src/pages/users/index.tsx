@@ -15,15 +15,20 @@ import {
   Th,
   Thead,
   Tr,
-  Link,
   useBreakpointValue,
   Tab,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import Layault from "@/components/Layault/Layault";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import Pagination from "@/components/Pagination";
 
 function UserList() {
+  const isDrawerSideBar = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
   return (
     <Layault>
       <Box flex="1" borderRadius="8" bg="gray.800">
@@ -31,15 +36,17 @@ function UserList() {
           <Heading fontWeight="normal" size="lg">
             Usuarios
           </Heading>
-          <Button
-            as="a"
-            size="sm"
-            fontSize="sm"
-            colorScheme="pink"
-            leftIcon={<Icon as={RiAddLine} fontSize="18" />}
-          >
-            Criar novo usuario
-          </Button>
+          <Link href="/users/create">
+            <Button
+              as="a"
+              size="sm"
+              fontSize="sm"
+              colorScheme="pink"
+              leftIcon={<Icon as={RiAddLine} fontSize="18" />}
+            >
+              Criar novo usuario
+            </Button>
+          </Link>
         </Flex>
         <Table colorScheme="whiteAlpha">
           <Thead>
@@ -48,7 +55,7 @@ function UserList() {
                 <Checkbox colorScheme="pink" />
               </Th>
               <Th>Usuários</Th>
-              <Th>Data de cadastro</Th>
+              {isDrawerSideBar && <Th>Data de cadastro</Th>}
               <Th width="8"></Th>
             </Tr>
           </Thead>
@@ -59,15 +66,15 @@ function UserList() {
               </Td>
               <Td>
                 <Box>
-                  <Link color="purple.400">
+                  <ChakraLink color="purple.400">
                     <Text fontWeight="bold">Antonio Sitoe</Text>
-                  </Link>
+                  </ChakraLink>
                   <Text fontSize="sm" color="gray.300">
                     Antonio Sitoe
                   </Text>
                 </Box>
               </Td>
-              <Td>Outubro</Td>
+              {isDrawerSideBar && <Td>Outubro</Td>}
               <Td>
                 <Button
                   as="a"
