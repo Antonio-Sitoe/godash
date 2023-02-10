@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ForwardRefRenderFunction } from "react";
 import {
   FormControl,
   FormLabel,
@@ -12,7 +12,10 @@ interface InterInputProps extends InputProps {
   type: string;
 }
 
-function Input({ label, name, type, ...props }: InterInputProps) {
+const InputBase: ForwardRefRenderFunction<HTMLInputElement, InterInputProps> = (
+  { label, name, type, ...props },
+  ref
+) => {
   return (
     <FormControl>
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
@@ -25,10 +28,11 @@ function Input({ label, name, type, ...props }: InterInputProps) {
         bg="gray.900"
         variant="filled"
         size={"lg"}
+        ref={ref}
         _hover={{ bgColor: "gray.900" }}
       />
     </FormControl>
   );
-}
+};
 
-export default Input;
+export const Input = React.forwardRef(InputBase);
