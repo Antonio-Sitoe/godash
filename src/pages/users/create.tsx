@@ -1,4 +1,4 @@
-import Input from "@/components/Form/Input";
+import { Input } from "@/components/Form/Input";
 import Layault from "@/components/Layault/Layault";
 import {
   Box,
@@ -11,11 +11,51 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+type CreateUserFormData = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+};
+
+const CreateUserFormSchema = Yup.object({
+  name: Yup.string().required(""),
+  email: Yup.string().required("").email(),
+  password: Yup.string().required(""),
+  password_confirmation: Yup.string()
+    .required("")
+    .oneOf([null, Yup.ref("password")], "As Senhas precisam ser iguais"),
+});
 
 function CreateUser() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(CreateUserFormSchema),
+  });
+
+  const handleCreateUser: SubmitHandler<FieldValues> = async function (data) {
+    await new Promise<void>((resolve) => setTimeout(resolve, 2000));
+    console.log(data);
+  };
+  console.log(errors);
   return (
     <Layault>
-      <Box flex="1" borderRadius="8" bg="gray.800" p="8">
+      <Box
+        flex="1"
+        borderRadius="8"
+        bg="gray.800"
+        p="8"
+        as="form"
+        onSubmit={handleSubmit(handleCreateUser)}
+      >
         <Heading size="lg" fontWeight="normal">
           Criar usuario
         </Heading>
@@ -23,15 +63,15 @@ function CreateUser() {
 
         <VStack spacing={8}>
           <SimpleGrid minChildWidth="240px" spacing={8} w="100%">
-            <Input name="name" type="text" label="Nome Completo" />
-            <Input name="email" type="email" label="E-mail" />
+            <Input type="text" label="Nome Completo" {...register("name")} />
+            <Input type="email" label="E-mail" {...register("email")} />
           </SimpleGrid>
           <SimpleGrid minChildWidth="240px" spacing={8} w="100%">
-            <Input name="password" type="password" label="Senha" />
+            <Input type="password" label="Senha" {...register("password")} />
             <Input
-              name="password_confirmation"
               type="password"
               label="Confirmacao da senha"
+              {...register("password_confirmation")}
             />
           </SimpleGrid>
         </VStack>
